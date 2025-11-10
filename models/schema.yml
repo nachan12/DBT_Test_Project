@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: customers
+    description: "One record per customer"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_customers
+    description: "This model cleans up customer data"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: "This model cleans up order data"
+    columns:
+      - name: order_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+      - name: status
+        description: "Name of the product."
+        tests:
+          - accepted_values:
+              arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                values:
+                  [
+                    "placed",
+                    "shipped",
+                    "completed",
+                    "return_pending",
+                    "returned",
+                  ]
+
+      - name: customer_id
+        description: "Unit price of the product."
+        tests:
+          - not_null
+          
